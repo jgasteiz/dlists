@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    {% for element in element_list %}
+        <a class="element" target="_blank" href="{{ element.url }}">
+            {{ element.title }}
+        </a>
+    {% endfor %}
+{% endblock %}

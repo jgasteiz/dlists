@@ -1,0 +1,14 @@
+body {
+    background: #EEE;
+}
+.content {
+    background: white;
+    margin: 20px auto;
+    padding: 20px;
+    width: 800px;
+}
+.element {
+    background: #DDD;
+    display: block;
+    padding: 8px 12px;
+}
