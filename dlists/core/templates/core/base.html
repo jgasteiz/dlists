@@ -3,28 +3,30 @@
         <meta charset="utf-8">
         <title>dlists</title>
         <meta name="author" content="Javi Manzano">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" />
     </head>
     <body>
 
-        <header class="main">
-            <h1>dlists</h1>
-        </header>
-
-        <div class="content">
-
-            <form action="/create/" method="post">
+        {% if user.is_authenticated %}
+        <div id="sortable" class="main-container">
+            <form action="/create/" method="post" class="create-form">
                 {% csrf_token %}
-                {% for field in form %}
-                    {{ field }}
-                {% endfor %}
-                <input type="submit" value="Ok" />
+                <input type="text" placeholder="Link here..." name="url" class="width85per">
+                <input type="submit" class="width12per float-right" value="OK"/>
             </form>
-
-            {% block content %}{% endblock %}
+        {% else %}
+        
+        <div class="main-container">
+        
+        {% endif %}
+                
+                {% block content %}{% endblock %}
+        
         </div>
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
     </body>
 </html>

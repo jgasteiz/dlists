@@ -21,7 +21,7 @@ DATABASES = {
 }
 
 TIME_ZONE = 'Europe/Madrid'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True

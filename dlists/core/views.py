@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from json import loads
 from datetime import date
 from dlists.core.models import Element
 from dlists.core.forms import ElementForm
@@ -24,9 +25,13 @@ class ElementListView(ListView):
             })
         return context
 
-class ElementCreate(CreateView):
-    model = Element
-    success_url = reverse_lazy('home')
+
+class ElementCreate(View):
+    def post(self, request, *args, **kwargs):
+        if request.POST['url']:
+            Element(url=request.POST['url']).save()
+        return HttpResponseRedirect('/')
+
 
 class ElementUpdate(View):
     def post(self, request, *args, **kwargs):
@@ -36,8 +41,21 @@ class ElementUpdate(View):
             e.save()
         return HttpResponseRedirect('/')
 
+
 class ElementDelete(View):
     def post(self, request, *args, **kwargs):
         if request.POST['pk']:
             Element.objects.filter(pk=request.POST['pk']).delete()
         return HttpResponseRedirect('/')
+
+
+class UpdateWeights(View):
+    def post(self, request, *args, **kwargs):
+        if request.POST['ids']:
+            ids = loads(request.POST['ids'])
+            i = 0
+            for id in ids:
+                Element.objects.filter(pk=id).update(weight=i)
+                i = i + 1
+        return HttpResponseRedirect('/')
+

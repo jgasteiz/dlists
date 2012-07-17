@@ -1,24 +1,106 @@
 body {
-    background: #EEE;
+    background: #F5F5F5;
+    margin: 0;
 }
-a {
-    color: #FF6666;
-}
-.content {
+.main-container {
     background: white;
     margin: 20px auto;
     padding: 20px;
     max-width: 800px;
 }
-.element {
-    background: #DDD;
-    border-bottom: 1px solid #AAA;
+section {
+    border-bottom: 1px solid #CCC;
     display: block;
-    padding: 16px 12px;
+    padding: 24px 12px;
 }
-.delete-form {
+.create-form {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 0;
+    padding-bottom: 15px;
+}
+a, i {
+    color: #666;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: color 0.4s ease;
+    -moz-transition: color 0.4s ease;
+    -o-transition: color 0.4s ease;
+    transition: color 0.4s ease;
+}
+a:hover, i:hover {
+    color: #448;
+}
+input[type=text] {
+    border: 1px solid #CCC;
+    font-size: 0.8em;
+    padding: 8px;
+}
+button,
+input[type=submit] {
+    background: #448;
+    border-radius: 2px;
+    border: 1px solid #2B2B6E;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+    -webkit-transition: background 0.4s ease;
+    -moz-transition: background 0.4s ease;
+    -o-transition: background 0.4s ease;
+    transition: background 0.4s ease;
+}
+button:hover,
+input[type=submit]:hover {
+    background: #2B2B6E;
+}
+
+/*
+    Elements
+*/
+.date {
+    color: #BBB;
+    display: block;
+    text-align: right;
+    text-transform: uppercase;
+}
+/* End Elements */
+
+/*
+    OOCSS
+*/
+.align-right {
     text-align: right;
 }
-.update-form {
+.align-center {
+    text-align: center;
+}
+.bigger {
+    font-size: 1.4em;
+}
+.block {
+    display: block;
+}
+.clear-both {
+    clear: both;
+}
+.float-right {
+    float: right;
+}
+.float-left {
+    float: left;
+}
+.hide {
     display: none;
 }
+.width85per {
+    width: 85%;
+}
+.width15per {
+    width: 15%;
+}
+.width12per {
+    width: 12%;
+}
+
+/* End OOCSS */

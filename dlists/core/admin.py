@@ -4,7 +4,7 @@ from dlists.core.models import Element
 
 
 class ElementAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'url', 'updated')
+    list_display = ('id', 'title', 'weight', 'created')
 
 
 admin.site.register(Element, ElementAdmin)

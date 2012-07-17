@@ -2,40 +2,58 @@
 
 {% block content %}
     {% for element in element_list %}
-        <div class="element">
+        <section class="sortable" id="{{ element.pk }}">
             
-            <a target="_blank" class="a_{{ element.pk }}" href="{{ element.url }}">
-                {{ element.title }}
-            </a>
-            
-            <!-- Update form -->
-            <div class="update-form" id="form_{{ element.pk }}">
-                <form method="post" name="form_{{ element.pk }}" action="/update/">
+            {% if user.is_authenticated %}
+                <!-- Visible at first -->
+                <div class="link-container{{ element.pk }}">
+                    <div class="float-left width85per">
+                        <a target="_blank" href="{{ element.url }}">
+                            {{ element.title }}
+                        </a>
+                        <span class="date">
+                            {{ element.created|date }}
+                        </span>
+                    </div>
+                    <div class="float-right width15per align-right">
+                        <a class="dlists-edit" data="{{ element.pk }}">
+                            <i class="icon-pencil bigger"></i>
+                        </a>
+                        <a class="dlists-delete" data="delete_form{{ element.pk }}">
+                            <i class="icon-trash bigger"></i>
+                        </a>
+                    </div>
+                    <div class="clear-both"></div>
+                </div><!-- End Visible at first -->
+                
+                <!-- Hidden at first -->
+                <div class="hide align-center form{{ element.pk }}">
+                    <form method="post" name="update_form{{ element.pk }}" action="/update/">
+                        {% csrf_token %}
+                        <input type="text" class="width85per" value="{{ element.title }}" name="title"/>
+                        <input type="hidden" value="{{ element.pk }}" name="pk"/>
+                    </form>
+                    <button class="btn" onclick="document.update_form{{ element.pk }}.submit();">
+                        Update
+                    </button>
+                    <button class="btn dlists-edit" data="{{ element.pk }}">
+                        Cancel
+                    </button>
+                </div><!-- End Hidden at first -->
+                
+                <form method="post" class="hide" name="delete_form{{ element.pk }}" action="/delete/">
                     {% csrf_token %}
-                    <input type="text" value="{{ element.title }}" name="title"/>
                     <input type="hidden" value="{{ element.pk }}" name="pk"/>
                 </form>
-                <button onclick="document.form_{{ element.pk }}.submit();">
-                    Update
-                </button>
-                <button onclick="toggleEdit({{ element.pk }})">
-                    Cancel
-                </button>
-            </div><!-- End Update form -->
+            {% else %}
+                <a target="_blank" class="block" href="{{ element.url }}">
+                    {{ element.title }}
+                </a>
+                <span class="date">
+                    {{ element.created|date }}
+                </span>
+            {% endif %}
 
-            <!-- Delete form -->
-            <div class="delete-form" id="form_{{ element.pk }}">
-                <form method="post" name="delete_form{{ element.pk }}" action="/delete/">
-                    {% csrf_token %}
-                    <input type="hidden" value="{{ element.pk }}" name="pk"/>
-                </form>
-                <button onclick="toggleEdit({{ element.pk }})" class="a_{{ element.pk }}" >
-                    Edit
-                </button>
-                <button onclick="document.delete_form{{ element.pk }}.submit();">
-                    Delete
-                </button>
-            </div><!-- End Delete form -->
-        </div>
+        </section>
     {% endfor %}
 {% endblock %}
