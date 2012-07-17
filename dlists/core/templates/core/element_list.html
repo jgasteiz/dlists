@@ -3,12 +3,12 @@
 {% block content %}
     {% for element in element_list %}
         <div class="element">
+            
             <a target="_blank" class="a_{{ element.pk }}" href="{{ element.url }}">
                 {{ element.title }}
             </a>
-            <a onclick="$('.a_{{ element.pk }}').toggle(); $('#form_{{ element.pk }}').toggle();" class="a_{{ element.pk }}" >
-                Edit
-            </a>
+            
+            <!-- Update form -->
             <div class="update-form" id="form_{{ element.pk }}">
                 <form method="post" name="form_{{ element.pk }}" action="/update/">
                     {% csrf_token %}
@@ -18,15 +18,24 @@
                 <button onclick="document.form_{{ element.pk }}.submit();">
                     Update
                 </button>
-                <button onclick="$('.a_{{ element.pk }}').toggle(); $('#form_{{ element.pk }}').toggle();">
+                <button onclick="toggleEdit({{ element.pk }})">
                     Cancel
                 </button>
-            </div>
-            <form method="post" class="delete-form" action="/delete/">
-                {% csrf_token %}
-                <input type="hidden" value="{{ element.pk }}" name="pk"/>
-                <input type="submit" value="Delete"/>
-            </form>
+            </div><!-- End Update form -->
+
+            <!-- Delete form -->
+            <div class="delete-form" id="form_{{ element.pk }}">
+                <form method="post" name="delete_form{{ element.pk }}" action="/delete/">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ element.pk }}" name="pk"/>
+                </form>
+                <button onclick="toggleEdit({{ element.pk }})" class="a_{{ element.pk }}" >
+                    Edit
+                </button>
+                <button onclick="document.delete_form{{ element.pk }}.submit();">
+                    Delete
+                </button>
+            </div><!-- End Delete form -->
         </div>
     {% endfor %}
 {% endblock %}
