@@ -3,7 +3,8 @@ from datetime import date
 from dlists.core.models import Element
 from dlists.core.forms import ElementForm
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import ListView, CreateView, View
 
 
 class ElementListView(ListView):
@@ -25,9 +26,18 @@ class ElementListView(ListView):
 
 class ElementCreate(CreateView):
     model = Element
+    success_url = reverse_lazy('home')
 
-class ElementUpdate(UpdateView):
-    model = Element
+class ElementUpdate(View):
+    def post(self, request, *args, **kwargs):
+        if request.POST['pk'] and request.POST['title']:
+            e = Element.objects.filter(pk=request.POST['pk'])[0]
+            e.title = request.POST['title']
+            e.save()
+        return HttpResponseRedirect('/')
 
-class ElementDelete(DeleteView):
-    model = Element
+class ElementDelete(View):
+    def post(self, request, *args, **kwargs):
+        if request.POST['pk']:
+            Element.objects.filter(pk=request.POST['pk']).delete()
+        return HttpResponseRedirect('/')

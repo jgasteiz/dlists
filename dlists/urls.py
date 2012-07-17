@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from dlists.core.views import ElementListView, ElementCreate
+from dlists.core.views import ElementListView, ElementCreate, ElementUpdate, ElementDelete
 from django.conf.urls import patterns, include, url
 
 admin.autodiscover()
@@ -12,5 +12,11 @@ urlpatterns = patterns('',
         name='home'),
     url(r'^create/',
         ElementCreate.as_view(),
-        name='create')
+        name='create'),
+    url(r'^update/',
+        ElementUpdate.as_view(),
+        name='update'),
+    url(r'delete/',
+        ElementDelete.as_view(),
+        name='delete')
 )

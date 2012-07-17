@@ -1,6 +1,9 @@
 body {
     background: #EEE;
 }
+a {
+    color: #FF6666;
+}
 .content {
     background: white;
     margin: 20px auto;
@@ -9,6 +12,13 @@ body {
 }
 .element {
     background: #DDD;
+    border-bottom: 1px solid #AAA;
     display: block;
-    padding: 8px 12px;
+    padding: 16px 12px;
+}
+.delete-form {
+    text-align: right;
+}
+.update-form {
+    display: none;
 }

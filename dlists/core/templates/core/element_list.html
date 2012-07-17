@@ -2,8 +2,31 @@
 
 {% block content %}
     {% for element in element_list %}
-        <a class="element" target="_blank" href="{{ element.url }}">
-            {{ element.title }}
-        </a>
+        <div class="element">
+            <a target="_blank" class="a_{{ element.pk }}" href="{{ element.url }}">
+                {{ element.title }}
+            </a>
+            <a onclick="$('.a_{{ element.pk }}').toggle(); $('#form_{{ element.pk }}').toggle();" class="a_{{ element.pk }}" >
+                Edit
+            </a>
+            <div class="update-form" id="form_{{ element.pk }}">
+                <form method="post" name="form_{{ element.pk }}" action="/update/">
+                    {% csrf_token %}
+                    <input type="text" value="{{ element.title }}" name="title"/>
+                    <input type="hidden" value="{{ element.pk }}" name="pk"/>
+                </form>
+                <button onclick="document.form_{{ element.pk }}.submit();">
+                    Update
+                </button>
+                <button onclick="$('.a_{{ element.pk }}').toggle(); $('#form_{{ element.pk }}').toggle();">
+                    Cancel
+                </button>
+            </div>
+            <form method="post" class="delete-form" action="/delete/">
+                {% csrf_token %}
+                <input type="hidden" value="{{ element.pk }}" name="pk"/>
+                <input type="submit" value="Delete"/>
+            </form>
+        </div>
     {% endfor %}
 {% endblock %}

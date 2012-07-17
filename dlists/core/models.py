@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from lxml import html
+from urllib2 import urlopen
 from django.db import models
 from datetime import datetime
 from dlists.core.forms import ElementForm
@@ -25,6 +26,6 @@ class Element(models.Model):
     def save(self, *args, **kwargs):
         self.updated = datetime.now()
         if not self.title:
-            t = html.parse(self.url)
+            t = html.parse(urlopen(self.url))
             self.title = t.find(".//title").text
         super(Element, self).save(*args, **kwargs)
