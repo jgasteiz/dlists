@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from lxml import html
 from django.db import models
 from datetime import datetime
 from dlists.core.forms import ElementForm
@@ -24,5 +25,6 @@ class Element(models.Model):
     def save(self, *args, **kwargs):
         self.updated = datetime.now()
         if not self.title:
-            self.title = self.url
+            t = html.parse(self.url)
+            self.title = t.find(".//title").text
         super(Element, self).save(*args, **kwargs)
