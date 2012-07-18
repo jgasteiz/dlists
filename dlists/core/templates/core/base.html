@@ -8,20 +8,19 @@
     </head>
     <body>
 
-        {% if user.is_authenticated %}
-        <div id="sortable" class="main-container">
-            <form action="/create/" method="post" class="create-form">
-                {% csrf_token %}
-                <input type="text" placeholder="Link here..." name="url" class="width85per">
-                <input type="submit" class="width12per float-right" value="OK"/>
-            </form>
-        {% else %}
-        
         <div class="main-container">
+
+            {% if user.is_authenticated %}
+                <form action="/create/" method="post" class="create-form">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Link here..." name="url" class="width85per">
+                    <input type="submit" class="width12per float-right" value="OK"/>
+                </form>
+            {% endif %}
         
-        {% endif %}
-                
+            <div id="sortable">
                 {% block content %}{% endblock %}
+            </div>
         
         </div>
 

@@ -1,3 +1,6 @@
+/*
+    Elements
+*/
 body {
     background: #F5F5F5;
     margin: 0;
@@ -11,12 +14,8 @@ body {
 section {
     border-bottom: 1px solid #CCC;
     display: block;
-    padding: 24px 12px;
-}
-.create-form {
-    border-bottom: 1px solid #CCC;
-    margin-bottom: 0;
-    padding-bottom: 15px;
+    padding: 30px 12px 16px;
+    position: relative;
 }
 a, i {
     color: #666;
@@ -54,15 +53,35 @@ button:hover,
 input[type=submit]:hover {
     background: #2B2B6E;
 }
-
-/*
-    Elements
-*/
 .date {
     color: #BBB;
     display: block;
     text-align: right;
     text-transform: uppercase;
+}
+.link {
+    color: #667A99;
+    display: block;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+.create-form {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 0;
+    padding-bottom: 15px;
+}
+.draggable {
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    left: 0;
+    padding: 0 5px;
+    position: absolute;
+    right: 0;
+    top: 8px;
+}
+.draggable:hover {
+    background: #F8F8F8;
 }
 /* End Elements */
 

@@ -5,12 +5,21 @@
         <section class="sortable" id="{{ element.pk }}">
             
             {% if user.is_authenticated %}
+                <!-- Element-sorting -->
+                <div class="draggable">
+                    <i class="icon-arrow-up"></i>
+                    <i class="icon-arrow-down"></i>
+                </div><!-- End Element-sorting -->
+
                 <!-- Visible at first -->
                 <div class="link-container{{ element.pk }}">
                     <div class="float-left width85per">
                         <a target="_blank" href="{{ element.url }}">
                             {{ element.title }}
                         </a>
+                        <span class="link">
+                            {{ element.url }}
+                        </span>
                         <span class="date">
                             {{ element.created|date }}
                         </span>
@@ -41,14 +50,19 @@
                     </button>
                 </div><!-- End Hidden at first -->
                 
+                <!-- Delete form -->
                 <form method="post" class="hide" name="delete_form{{ element.pk }}" action="/delete/">
                     {% csrf_token %}
                     <input type="hidden" value="{{ element.pk }}" name="pk"/>
-                </form>
+                </form><!-- End Delete form -->
+                
             {% else %}
                 <a target="_blank" class="block" href="{{ element.url }}">
                     {{ element.title }}
                 </a>
+                <span class="link">
+                    {{ element.url }}
+                </span>
                 <span class="date">
                     {{ element.created|date }}
                 </span>

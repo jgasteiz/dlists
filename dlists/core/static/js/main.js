@@ -1,6 +1,10 @@
 
 var DLISTS = (function() {
     
+    /*
+     *  Starts click and drag listeners
+     *
+     */
     function initListeners() {
         $('.dlists-edit').click(function() {
             toggleEdit($(this).attr('data'));
@@ -10,23 +14,35 @@ var DLISTS = (function() {
         });
 
         $("#sortable").sortable({
-            revert: true,
+            handle: ".draggable",
             stop: saveWeights
         });
-        $("#sortable section").disableSelection();
+        $("a.draggable").disableSelection();
     }
 
+    /*
+     *  Toggles the edition of an element
+     *
+     */
     function toggleEdit(pk) {
         $('.link-container' + pk).toggleClass('hide');
         $('.form' + pk).toggleClass('hide');
     }
 
+    /*
+     *  If confirm, it deletes a link
+     *
+     */
     function deleteLink(formName) {
         if (confirm('Are you sure?')) {
             $('form[name=' + formName + ']').submit();
         }
     }
 
+    /*
+     *  When stop dragging, it saves the current element weights
+     *
+     */
     function saveWeights() {
         var i,
             arrayIds = [],
@@ -34,11 +50,7 @@ var DLISTS = (function() {
         for (i = 0; i < arrayElements.length; i++) {
             arrayIds.push($(arrayElements[i]).attr("id"));
         }
-        $.post('/_ajax/update_weights/',
-            {
-                'ids': JSON.stringify(arrayIds)
-            }
-        );
+        $.post('/_ajax/update_weights/', {'ids': JSON.stringify(arrayIds)});
     }
 
     return {
