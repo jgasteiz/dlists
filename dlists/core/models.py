@@ -28,6 +28,10 @@ class Element(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.title:
-            soup = BeautifulSoup(urlopen(self.url))
-            self.title = unicode(soup.title.string)
+            try:
+                soup = BeautifulSoup(urlopen(self.url))
+                self.title = unicode(soup.title.string)
+            except ValueError,e:
+                self.title = self.url
+                self.url = ''
         super(Element, self).save(*args, **kwargs)

@@ -2,9 +2,9 @@
 
 {% block content %}
     {% for element in element_list %}
-        <section class="sortable" id="{{ element.pk }}">
-            
-            {% if user.is_authenticated %}
+        
+        {% if user.is_authenticated %}
+            <section class="sortable" id="{{ element.pk }}">
                 <!-- Element-sorting -->
                 <div class="draggable">
                     <i class="icon-arrow-up"></i>
@@ -14,14 +14,11 @@
                 <!-- Visible at first -->
                 <div class="link-container{{ element.pk }}">
                     <div class="float-left width85per">
-                        <a target="_blank" href="{{ element.url }}">
+                        <a target="_blank" {% if element.url %}href="{{ element.url }}"{% endif %}>
                             {{ element.title }}
                         </a>
                         <span class="link">
                             {{ element.url }}
-                        </span>
-                        <span class="date">
-                            {{ element.created|date }}
                         </span>
                     </div>
                     <div class="float-right width15per align-right">
@@ -55,19 +52,17 @@
                     {% csrf_token %}
                     <input type="hidden" value="{{ element.pk }}" name="pk"/>
                 </form><!-- End Delete form -->
-                
-            {% else %}
-                <a target="_blank" class="block" href="{{ element.url }}">
+            </section>
+
+        {% else %}
+            <section>
+                <a target="_blank" {% if element.url %}href="{{ element.url }}"{% endif %}>
                     {{ element.title }}
                 </a>
                 <span class="link">
                     {{ element.url }}
                 </span>
-                <span class="date">
-                    {{ element.created|date }}
-                </span>
-            {% endif %}
-
-        </section>
+            </section>
+        {% endif %}
     {% endfor %}
 {% endblock %}
